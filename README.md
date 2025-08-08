@@ -1,324 +1,300 @@
-# 🚀 EXNESS MT5 Trading Service
+# 🔥 Cross-Platform Trading System
 
 ![Python](https://img.shields.io/badge/Python-3.8+-blue.svg)
 ![FastAPI](https://img.shields.io/badge/FastAPI-0.68+-green.svg)
-![MetaTrader5](https://img.shields.io/badge/MetaTrader5-5.0+-orange.svg)
+![MT5](https://img.shields.io/badge/MetaTrader5-5.0+-orange.svg)
+![OKX](https://img.shields.io/badge/OKX-API-blue.svg)
+![Discord](https://img.shields.io/badge/Discord-API-7289da.svg)
+![MongoDB](https://img.shields.io/badge/MongoDB-4.0+-green.svg)
+![Docker](https://img.shields.io/badge/Docker-Ready-blue.svg)
 ![License](https://img.shields.io/badge/License-MIT-yellow.svg)
 
-**Dịch vụ API giao dịch tự động hoàn chỉnh cho MetaTrader 5 với sàn Exness**
+**Hệ thống trading đa nền tảng với MT5, OKX và Discord Bot tự động**
 
-Hệ thống cung cấp RESTful API để thực hiện giao dịch tự động, quản lý rủi ro, theo dõi signal và thông báo thời gian thực thông qua MT5 terminal.
-
-## 📋 Tính năng chính
-
-### 🎯 Trading Operations
-- ✅ **Market Orders** - Thực hiện lệnh thị trường ngay lập tức
-- ✅ **Pending Orders** - Quản lý lệnh chờ (Limit, Stop)
-- ✅ **Position Management** - Quản lý positions (đóng, sửa SL/TP, hedge)
-- ✅ **Automated Trading** - Giao dịch tự động theo lịch và điều kiện
-
-### 📊 Market Analysis
-- ✅ **Real-time Prices** - Giá thời gian thực
-- ✅ **Symbol Information** - Thông tin chi tiết symbols
-- ✅ **OHLC Data** - Dữ liệu nến (candlestick)
-- ✅ **Tick History** - Lịch sử tick data
-
-### 🛡️ Risk Management
-- ✅ **Position Sizing** - Tính toán kích thước position tối ưu
-- ✅ **Trailing Stop** - Quản lý trailing stop loss
-- ✅ **Portfolio Risk** - Phân tích rủi ro portfolio
-- ✅ **Hedge Positions** - Tạo positions hedge
-
-### 🤖 Advanced Features
-- ✅ **Grid Trading** - Chiến lược grid trading
-- ✅ **Martingale** - Chiến lược martingale
-- ✅ **Signal Trading** - Lưu trữ và theo dõi signals
-- ✅ **Scheduled Trading** - Giao dịch theo lịch
-- ✅ **Conditional Orders** - Lệnh có điều kiện
-
-### 📱 Notifications
-- ✅ **Telegram Bot** - Thông báo qua Telegram
-- ✅ **Discord Webhook** - Thông báo qua Discord
-- ✅ **Real-time Alerts** - Cảnh báo thời gian thực
+Một ecosystem hoàn chỉnh cho automated trading, signal collection và market analysis trên nhiều sàn giao dịch.
 
 ## 🏗️ Kiến trúc hệ thống
 
 ```
-FastAPI Application
-├── 🌐 API Routers           # REST API endpoints
-├── 🔧 Services             # Business logic layer
-│   ├── MT5BaseService      # Connection management
-│   ├── TradingService      # Trading operations
-│   ├── MarketService       # Market data
-│   ├── RiskService         # Risk management
-│   ├── AutomationService   # Automated strategies
-│   ├── SignalService       # Signal management
-│   └── NotificationService # Alerts & notifications
-├── 📊 Models              # Data structures (Pydantic)
-├── 🛠️ Utils               # Helper functions
-└── 💾 Database            # MongoDB for signals/automation
+Cross-Platform Trading System
+├── 🤖 Discord Service (Port 3001)    # Signal collection & monitoring
+│   ├── Auto Message Fetching        # Thu thập trading signals  
+│   ├── MongoDB Storage               # Lưu trữ signals
+│   └── RESTful API                   # Discord message API
+│
+├── ⚡ Trading Service (Port 3002)     # Multi-platform trading
+│   ├── 🚀 MT5 Integration           # MetaTrader 5 trading
+│   │   ├── Spot & CFD Trading       # Forex, Gold, Indices
+│   │   ├── Risk Management          # Position sizing, SL/TP
+│   │   ├── Automation               # Grid, Martingale strategies
+│   │   └── Notifications            # Telegram, Discord alerts
+│   │
+│   └── 💎 OKX Integration           # Cryptocurrency trading
+│       ├── Spot & Futures Trading   # Crypto spot & derivatives
+│       ├── Algo Trading             # TP/SL, Trailing stops
+│       ├── Market Data              # Real-time prices, orderbook
+│       └── Account Management       # Balance, positions
+│
+└── 🐳 Docker Support                # Containerized deployment
+    ├── Dockerfile.discord           # Discord service container
+    ├── Dockerfile.trading           # Trading service container
+    └── docker-compose.yml           # Multi-service orchestration
 ```
 
-## 📦 Cài đặt
+## 🚀 Quick Start
 
-### Prerequisites
-- **Python 3.8+**
-- **MetaTrader 5 Terminal** 
-- **Exness Trading Account**
-- **MongoDB** (cho signals và automation)
-
-### 1. Clone repository
+### Option 1: Docker (Recommended)
 ```bash
+# Clone repository
 git clone <repository-url>
-cd exness-mt5-trading-service
+cd cross_platform_trader
+
+# Configure environment
+cp .env.example .env
+# Edit .env với credentials của bạn
+
+# Start all services
+cd docker
+docker-compose up -d
+
+# Check services
+curl http://localhost:3001/health  # Discord service
+curl http://localhost:3002/health  # Trading service
 ```
 
-### 2. Tạo virtual environment
+### Option 2: Manual Setup
 ```bash
+# Create virtual environment
 python -m venv env
+
+# Activate virtual environment
 # Windows
 env\Scripts\activate
 # Linux/Mac
 source env/bin/activate
+
+# Install dependencies
+pip install -r requirements/discord.txt
+pip install -r requirements/trading.txt
+
+# Configure environment
+cp .env.example .env
+# Edit .env với credentials của bạn
+
+# Start Discord service
+python main-discord.py
+
+# Start Trading service (new terminal)
+python main-trading.py
 ```
 
-### 3. Cài đặt dependencies
-```bash
-pip install -r requirements.txt
-```
+## 📚 Documentation
 
-### 4. Cấu hình environment
-Tạo file `.env`:
+### 📖 Service Documentation
+| Service | Port | Documentation | Description |
+|---------|------|---------------|-------------|
+| 🤖 **Discord Bot** | 3001 | [README_DISCORD.md](docs/README_DISCORD.md) | Signal collection from Discord channels |
+| 🚀 **MT5 Trading** | 3002 | [README_MT5.md](docs/README_MT5.md) | MetaTrader 5 automated trading |
+| 💎 **OKX Trading** | 3002 | [README_OKX.md](docs/README_OKX.md) | OKX cryptocurrency trading |
+
+### 🌐 API Documentation
+- **Discord API**: http://localhost:3001/docs
+- **Trading API**: http://localhost:3002/docs
+
+## ⚙️ Environment Configuration
+
+### Required Environment Variables
 ```env
+# Discord Settings
+DISCORD_USER_TOKEN=your_discord_token
+DISCORD_CHANNEL_ID=123456789012345678
+TARGET_USER_ID=987654321098765432
+
 # MT5 Settings
 MT5_LOGIN=your_mt5_login
-MT5_PASSWORD=your_mt5_password
+MT5_PASSWORD=your_mt5_password  
 MT5_SERVER=your_mt5_server
 
-# Notification Settings
+# OKX Settings
+OKX_API_KEY=your_api_key
+OKX_SECRET_KEY=your_secret_key
+OKX_PASSPHRASE=your_passphrase
+OKX_IS_SANDBOX=true
+
+# MongoDB
+MONGODB_URL=mongodb://localhost:27017
+MONGODB_DB=trading_system
+
+# Notifications (Optional)
 TELEGRAM_BOT_TOKEN=your_bot_token
 TELEGRAM_CHAT_ID=your_chat_id
 DISCORD_WEBHOOK_URL=your_discord_webhook
-
-# MongoDB Settings
-MONGODB_URL=mongodb://localhost:27017
-MONGODB_DB=mt5_trading
 ```
 
-### 5. Cấu hình MT5 Terminal
+## 💡 Use Cases & Examples
 
-#### **Bật AutoTrading:**
-1. Mở MT5 Terminal
-2. `Tools → Options → Expert Advisors`
-3. ✅ Enable `"Allow algorithmic trading"`
-4. ✅ Enable `"Allow DLL imports"`
-5. ✅ Enable `"Allow WebRequest for listed URL"`
-6. Restart MT5 Terminal
-
-#### **Kiểm tra AutoTrading Button:**
-- Trên toolbar MT5, tìm button "AutoTrading" (🤖)
-- Đảm bảo nó đang **ENABLED** (màu xanh lá)
-
-### 6. Chạy ứng dụng
+### 1. Discord Signal Collection
 ```bash
-python -m app.main
+# Auto-collect trading signals từ Discord channel
+curl -X POST "http://localhost:3001/discord/messages/fetch" \
+     -H "Content-Type: application/json" \
+     -d '{"limit": 50}'
+
+# Lấy signals đã collect
+curl -X GET "http://localhost:3001/discord/messages/latest?limit=10"
 ```
 
-Server sẽ chạy tại: `http://localhost:8000`
-
-## 📚 API Documentation
-
-### 🔗 Swagger UI
-Truy cập: `http://localhost:8000/docs`
-
-### 📊 API Endpoints Overview
-
-#### **🎯 Trading APIs** (`/trading`)
-| Method | Endpoint | Description |
-|--------|----------|-------------|
-| `POST` | `/trading/market-order` | Thực hiện lệnh thị trường |
-
-#### **📈 Market Data APIs** (`/market`)
-| Method | Endpoint | Description |
-|--------|----------|-------------|
-| `GET` | `/market/symbols` | Lấy/tìm kiếm symbols |
-| `GET` | `/market/symbols/{symbol}/info` | Thông tin chi tiết symbol |
-| `GET` | `/market/symbols/{symbol}/price` | Giá thời gian thực |
-| `GET` | `/market/symbols/{symbol}/ticks` | Lịch sử tick data |
-| `GET` | `/market/symbols/{symbol}/ohlc` | Dữ liệu OHLC |
-
-#### **📋 Position Management APIs** (`/positions`)
-| Method | Endpoint | Description |
-|--------|----------|-------------|
-| `GET` | `/positions/` | Lấy tất cả positions |
-| `DELETE` | `/positions/{ticket}` | Đóng position |
-| `POST` | `/positions/{ticket}/modify` | Sửa SL/TP |
-| `POST` | `/positions/close-all` | Đóng tất cả positions |
-| `POST` | `/positions/hedge/{ticket}` | Tạo hedge position |
-
-#### **📝 Orders Management APIs** (`/orders`)
-| Method | Endpoint | Description |
-|--------|----------|-------------|
-| `GET` | `/orders/pending` | Lấy pending orders |
-| `POST` | `/orders/pending` | Tạo pending order |
-| `DELETE` | `/orders/pending/{ticket}` | Hủy pending order |
-
-#### **👤 Account APIs** (`/account`)
-| Method | Endpoint | Description |
-|--------|----------|-------------|
-| `GET` | `/account/info` | Thông tin tài khoản |
-
-#### **🛡️ Risk Management APIs** (`/risk`)
-| Method | Endpoint | Description |
-|--------|----------|-------------|
-| `POST` | `/risk/position-size` | Tính position size |
-| `POST` | `/risk/trailing-stop` | Quản lý trailing stop |
-| `POST` | `/risk/portfolio-risk` | Phân tích rủi ro portfolio |
-
-#### **📊 Trading Signals APIs** (`/signals`)
-| Method | Endpoint | Description |
-|--------|----------|-------------|
-| `POST` | `/signals/` | Thêm signal |
-| `GET` | `/signals/` | Lấy signals theo symbol |
-| `DELETE` | `/signals/{signal_id}` | Xóa signal |
-| `GET` | `/signals/symbols` | Lấy danh sách symbols |
-| `GET` | `/signals/timeframes` | Lấy danh sách timeframes |
-
-#### **🤖 Automation APIs** (`/automation`)
-| Method | Endpoint | Description |
-|--------|----------|-------------|
-| `POST` | `/automation/schedule` | Lên lịch giao dịch |
-| `POST` | `/automation/conditional` | Tạo lệnh có điều kiện |
-| `POST` | `/automation/grid` | Thiết lập grid trading |
-| `POST` | `/automation/martingale` | Thiết lập martingale |
-
-## 💡 Ví dụ sử dụng
-
-### 1. Thực hiện Market Order
+### 2. MT5 Automated Trading
 ```bash
-curl -X POST "http://localhost:8000/trading/market-order" \
+# Thực hiện market order
+curl -X POST "http://localhost:3002/mt5/trading/market-order" \
      -H "Content-Type: application/json" \
      -d '{
-       "symbol": "BTCUSD",
-       "order_type": "BUY",
-       "amount": 1000,
-       "stop_loss": 45000,
-       "take_profit": 50000,
-       "comment": "BTC Long"
+       "symbol": "XAUUSD",
+       "order_type": "BUY", 
+       "amount": 0.1,
+       "stop_loss": 1950,
+       "take_profit": 2050
+     }'
+
+# Lấy account info
+curl -X GET "http://localhost:3002/mt5/account/info"
+```
+
+### 3. OKX Crypto Trading
+```bash
+# Đặt limit order BTC
+curl -X POST "http://localhost:3002/okx/trading/place-order" \
+     -H "Content-Type: application/json" \
+     -d '{
+       "inst_id": "BTC-USDT",
+       "td_mode": "cash",
+       "side": "buy",
+       "ord_type": "limit",
+       "sz": "0.001",
+       "px": "45000"
+     }'
+
+# Đặt TP/SL order
+curl -X POST "http://localhost:3002/okx/algo-trading/place-tp-sl" \
+     -H "Content-Type: application/json" \
+     -d '{
+       "inst_id": "BTC-USDT-SWAP",
+       "td_mode": "cross", 
+       "side": "buy",
+       "sz": "0.1",
+       "tp_trigger_px": "50000",
+       "sl_trigger_px": "40000"
      }'
 ```
 
-### 2. Lấy thông tin tài khoản
+## 🔧 Advanced Features
+
+### 🤖 Automated Strategies
+- **Grid Trading**: Tự động tạo lưới lệnh
+- **Martingale**: Tăng size sau lỗ
+- **Signal-based Trading**: Trading theo Discord signals
+- **Risk Management**: Auto SL/TP, position sizing
+
+### 📊 Market Analysis
+- **Real-time Data**: Prices từ MT5 và OKX
+- **Technical Indicators**: Built-in TA indicators
+- **Multi-timeframe**: 1m, 5m, 1h, 4h, 1D analysis
+- **Cross-platform Arbitrage**: Compare prices across platforms
+
+### 📱 Notifications & Monitoring
+- **Telegram Alerts**: Trade notifications
+- **Discord Webhooks**: Server updates
+- **Health Monitoring**: Service status checks
+- **Performance Analytics**: P&L tracking
+
+## 🐳 Docker Deployment
+
+### Development
 ```bash
-curl -X GET "http://localhost:8000/account/info"
+cd docker
+docker-compose up --build
 ```
 
-### 3. Lấy giá symbol
+### Production
 ```bash
-curl -X GET "http://localhost:8000/market/symbols/BTCUSD/price"
+cd docker
+docker-compose up -d
 ```
 
-### 4. Đóng tất cả positions
+### Individual Services
 ```bash
-curl -X POST "http://localhost:8000/positions/close-all"
+cd docker
+
+# Discord service only
+docker-compose up discord-bot
+
+# Trading service only  
+docker-compose up trading-service
 ```
 
-### 5. Thêm trading signal
+## 📊 Monitoring & Health Checks
+
+### Service Status
 ```bash
-curl -X POST "http://localhost:8000/signals/" \
-     -H "Content-Type: application/json" \
-     -d '{
-       "symbol": "BTCUSD",
-       "signal_type": "UP",
-       "timeframe": "1",
-       "entry_price": 47500
-     }'
+# Check all services
+curl http://localhost:3001/health && curl http://localhost:3002/health
+
+# Expected responses:
+# Discord: {"status": "healthy", "service": "discord-bot", "discord_scheduler": "running"}
+# Trading: {"status": "healthy", "service": "trading", "services": {"mt5": "connected", "okx": "connected"}}
 ```
 
-## 🚨 Troubleshooting
+### Performance Monitoring
+- **Discord**: Message fetch rate, duplicate detection
+- **MT5**: Connection status, order execution latency
+- **OKX**: API rate limits, error rates
+- **MongoDB**: Collection sizes, query performance
 
-### ❌ Lỗi: "AutoTrading disabled by client"
+## 🚨 Common Issues & Solutions
 
-**Nguyên nhân:** MT5 Terminal chưa bật AutoTrading
-
-**Giải pháp:**
-1. **Bật AutoTrading trong MT5:**
-   ```
-   Tools → Options → Expert Advisors
-   ✅ Allow algorithmic trading
-   ✅ Allow DLL imports
-   ✅ Allow WebRequest for listed URL
-   ```
-
-2. **Kiểm tra AutoTrading Button:**
-   - Trên toolbar MT5, button "AutoTrading" (🤖) phải màu xanh
-   - Nếu màu đỏ, click để enable
-
-3. **Restart MT5 Terminal** sau khi thay đổi cấu hình
-
-4. **Kiểm tra trading status:**
-   ```bash
-   curl -X GET "http://localhost:8000/account/info"
-   ```
-
-### ❌ Lỗi: "Failed to connect to MT5"
-
-**Giải pháp:**
-1. Kiểm tra MT5 Terminal đang chạy
-2. Kiểm tra thông tin đăng nhập trong `.env`
-3. Đảm bảo internet connection ổn định
-4. Restart MT5 và API service
-
-### ❌ Lỗi: "Symbol not found"
-
-**Giải pháp:**
-1. Kiểm tra symbol name chính xác: `BTCUSD`, `XAUUSD`
-2. Đảm bảo symbol có trong Market Watch của MT5
-3. Sử dụng API để search symbols:
-   ```bash
-   curl -X GET "http://localhost:8000/market/symbols?search=BTC"
-   ```
-
-## 🔧 Development
-
-### Chạy trong development mode
+### Discord Service Issues
 ```bash
-python -m app.main
+# Token expired
+# Solution: Update DISCORD_USER_TOKEN in .env
+
+# No messages found
+# Solution: Check TARGET_USER_ID and DISCORD_CHANNEL_ID
+
+# MongoDB connection failed
+# Solution: Ensure MongoDB is running and MONGODB_URL is correct
 ```
 
-### Chạy với Gunicorn (Production)
+### Trading Service Issues
 ```bash
-gunicorn app.main:app -c gunicorn.conf.py
+# MT5 connection failed
+# Solution: Check MT5 credentials and ensure MT5 terminal is running
+
+# OKX API errors
+# Solution: Verify API key permissions and rate limits
+
+# Invalid signatures
+# Solution: Check system time sync for API signatures
 ```
 
-### Testing APIs
-1. Truy cập Swagger UI: `http://localhost:8000/docs`
-2. Sử dụng Postman collection
-3. Test với curl commands
+## 🔒 Security Best Practices
 
-## 📊 Monitoring
+### API Security
+- **Environment Variables**: Never hardcode credentials
+- **IP Whitelisting**: Restrict API access by IP
+- **API Permissions**: Minimum required permissions only
+- **Regular Rotation**: Rotate API keys monthly
 
-### Health Check
-```bash
-curl -X GET "http://localhost:8000/health"
-```
-
-### Logs
-- Application logs: Console output
-- MT5 Terminal logs: `MT5_DATA_FOLDER/Logs/`
-- Error tracking via notification services
-
-## 🔒 Security
-
-- **API Authentication:** Implement JWT/API keys cho production
-- **Network Security:** Sử dụng HTTPS, firewall rules
-- **Credential Management:** Store sensitive data trong environment variables
-- **Rate Limiting:** Implement rate limiting cho API endpoints
+### Trading Security
+- **Position Limits**: Set maximum position sizes
+- **Stop Losses**: Always use stop losses
+- **Diversification**: Don't risk more than 2-5% per trade
+- **Testing**: Test on demo accounts first
 
 ## 🤝 Contributing
 
 1. Fork repository
-2. Tạo feature branch: `git checkout -b feature/amazing-feature`
+2. Create feature branch: `git checkout -b feature/amazing-feature`
 3. Commit changes: `git commit -m 'Add amazing feature'`
 4. Push to branch: `git push origin feature/amazing-feature`
 5. Open Pull Request
@@ -329,14 +305,56 @@ Distributed under the MIT License. See `LICENSE` for more information.
 
 ## 📞 Support
 
-- **Email:** your-email@example.com
-- **Telegram:** @your_telegram
-- **Discord:** Your Discord Server
+- **Documentation**: Check service-specific READMEs in `docs/`
+- **Issues**: Create GitHub issue với detailed description
+- **Email**: your-email@example.com
 
-## ⚠️ Disclaimer
+## ⚠️ Trading Disclaimer
 
-**CẢNH BÁO:** Giao dịch forex và CFD có rủi ro cao. Bạn có thể mất tất cả tiền đầu tư. Sử dụng hệ thống này hoàn toàn có trách nhiệm của bạn. Tác giả không chịu trách nhiệm về bất kỳ tổn thất nào.
+**CẢNH BÁO**: Trading forex, CFDs và cryptocurrency có rủi ro cao. Bạn có thể mất tất cả tiền đầu tư. Hệ thống này chỉ là công cụ hỗ trợ, không phải lời khuyên tài chính. Sử dụng hoàn toàn có trách nhiệm của bạn.
+
+## 📁 Project Structure
+
+```
+cross_platform_trader/
+├── 📖 README.md                        # Main documentation
+├── 📱 main-discord.py                   # Discord service entry point
+├── ⚡ main-trading.py                   # Trading service entry point
+├── 📁 docs/                            # Documentation
+│   ├── 🤖 README_DISCORD.md            # Discord Bot API docs
+│   ├── 🚀 README_MT5.md                # MT5 Trading docs
+│   └── 💎 README_OKX.md                # OKX Trading docs
+├── 🐳 docker/                          # Docker configuration
+│   ├── Dockerfile.discord              # Discord service container
+│   ├── Dockerfile.trading              # Trading service container
+│   └── docker-compose.yml              # Multi-service orchestration
+├── 📦 requirements/                     # Python dependencies
+│   ├── discord.txt                     # Discord service deps
+│   └── trading.txt                     # Trading service deps
+├── 📂 app/                             # Application source code
+│   ├── 🤖 discord_app/                 # Discord service
+│   │   ├── config.py                   # Discord configuration
+│   │   ├── models/                     # Discord data models
+│   │   ├── routers/                    # Discord API routes
+│   │   └── services/                   # Discord business logic
+│   ├── ⚡ trading_app/                 # Trading service
+│   │   ├── config.py                   # Trading configuration
+│   │   ├── models/                     # Trading data models
+│   │   │   ├── mt5/                    # MT5 specific models
+│   │   │   └── okx/                    # OKX specific models
+│   │   ├── routers/                    # Trading API routes
+│   │   │   ├── mt5/                    # MT5 endpoints
+│   │   │   └── okx/                    # OKX endpoints
+│   │   └── services/                   # Trading business logic
+│   │       ├── mt5/                    # MT5 services
+│   │       └── okx/                    # OKX services
+│   └── 🔄 shared/                      # Shared utilities
+│       └── utils/                      # Common helper functions
+└── 📄 LICENSE                          # MIT License
+```
 
 ---
 
 **Made with ❤️ for the Trading Community**
+
+*Empowering traders with automated, cross-platform trading solutions.*

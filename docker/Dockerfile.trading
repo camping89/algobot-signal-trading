@@ -1,0 +1,23 @@
+FROM python:3.11-slim
+
+WORKDIR /app
+
+# Install system dependencies for MT5
+RUN apt-get update && apt-get install -y \
+    wget \
+    && rm -rf /var/lib/apt/lists/*
+
+# Copy requirements first for better caching
+COPY requirements/trading.txt .
+RUN pip install --no-cache-dir -r trading.txt
+
+# Copy application code
+COPY app/ ./app/
+COPY main-trading.py .
+COPY .env .
+
+# Expose port
+EXPOSE 3002
+
+# Run the application
+CMD ["python", "main-trading.py"]

@@ -1,0 +1,46 @@
+version: '3.8'
+
+services:
+  discord-bot:
+    build:
+      context: ..
+      dockerfile: docker/Dockerfile.discord
+    container_name: discord-bot
+    ports:
+      - "3001:3001"
+    environment:
+      - PYTHONPATH=/app
+    env_file:
+      - ../.env
+    restart: unless-stopped
+    networks:
+      - trading-network
+    healthcheck:
+      test: ["CMD", "curl", "-f", "http://localhost:3001/health"]
+      interval: 30s
+      timeout: 10s
+      retries: 3
+
+  trading-service:
+    build:
+      context: ..
+      dockerfile: docker/Dockerfile.trading
+    container_name: trading-service
+    ports:
+      - "3002:3002"
+    environment:
+      - PYTHONPATH=/app
+    env_file:
+      - ../.env
+    restart: unless-stopped
+    networks:
+      - trading-network
+    healthcheck:
+      test: ["CMD", "curl", "-f", "http://localhost:3002/health"]
+      interval: 30s
+      timeout: 10s
+      retries: 3
+
+networks:
+  trading-network:
+    driver: bridge
