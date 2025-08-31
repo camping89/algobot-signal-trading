@@ -1,0 +1,17 @@
+<component name="ProjectRunConfigurationManager">
+  <configuration default="false" name="Docker Discord Debug" type="PyRemoteDebugConfigurationType" factoryName="Python Remote Debug">
+    <module name="algobot-signal-trading" />
+    <option name="PORT" value="3999" />
+    <option name="HOST" value="localhost" />
+    <PathMappingSettings>
+      <option name="pathMappings">
+        <list>
+          <mapping local-root="/app/discord" remote-root="/app/app/discord" />
+        </list>
+      </option>
+    </PathMappingSettings>
+    <option name="REDIRECT_OUTPUT" value="true" />
+    <option name="SUSPEND_AFTER_CONNECT" value="true" />
+    <method v="2" />
+  </configuration>
+</component>

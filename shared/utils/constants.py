@@ -1,0 +1,13 @@
+"""
+Trading constants used across the application
+"""
+
+TRADE_DEVIATION = 20
+TRADE_MAGIC = 234000
+
+MAX_RETRIES = 3
+RETRY_MULTIPLIER = 1
+RETRY_MIN_WAIT = 4
+RETRY_MAX_WAIT = 10
+
+VERIFICATION_WAIT_TIME = 1.0

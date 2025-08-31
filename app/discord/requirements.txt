@@ -1,0 +1,31 @@
+# Discord Service Dependencies - Python 3.12 Compatible
+
+# Core Framework Dependencies
+fastapi>=0.104.0
+uvicorn>=0.24.0
+pydantic>=2.5.0
+pydantic-settings>=2.1.0
+
+# HTTP Client Dependencies
+aiohttp>=3.9.0
+requests>=2.31.0
+
+# Configuration
+python-dotenv>=1.0.0
+
+# File Upload Support
+python-multipart>=0.0.6
+
+# Database Dependencies
+motor>=3.3.0
+pymongo>=4.6.0
+
+# Retry Logic
+tenacity>=8.2.3
+
+# Discord-specific Dependencies
+# Scheduling
+APScheduler>=3.10.4
+
+# Development/Debug Dependencies
+debugpy>=1.8.0
