@@ -8,7 +8,6 @@ services:
       target: production
     ports:
       - "3000:3000"
-    environment:
     env_file:
       - .env
     depends_on:
@@ -25,7 +24,6 @@ services:
       target: production
     ports:
       - "3010:3010"
-    environment:
     env_file:
       - .env
     depends_on:
