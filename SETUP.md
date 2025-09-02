@@ -140,13 +140,11 @@ Once running, the following endpoints will be available:
 - **API**: http://localhost:3000
 - **Health Check**: http://localhost:3000/health
 - **Docs**: http://localhost:3000/docs
-- **Debug Port**: 3999 (if DEBUG_MODE=true)
 
 #### Trading Service
 - **API**: http://localhost:4000
 - **Health Check**: http://localhost:4000/health
 - **Docs**: http://localhost:4000/docs
-- **Debug Port**: 4999 (if DEBUG_MODE=true)
 
 #### Database Services
 - **MongoDB**: localhost:27017
@@ -166,16 +164,6 @@ curl http://localhost:4000/health
 
 3. **Test Database Connectivity:**
 The health check endpoints will verify database connections.
-
-### Debug Mode
-When `DEBUG_MODE=true`, services will:
-- Wait for debugger attachment on startup
-- Provide detailed logging
-- Enable hot-reload for development
-
-To attach debugger:
-- **VS Code**: Use "Python: Attach" configuration
-- **PyCharm**: Create remote debug configuration
 
 ## Testing
 
@@ -275,13 +263,6 @@ algobot-signal-trading/
 - Verify environment configuration
 - Test database connectivity
 - Review this setup guide
-
-### Development Tips
-- Use `DEBUG_MODE=true` for development
-- Attach debugger for step-through debugging
-- Monitor service health endpoints
-- Use Docker for consistent environment
-- Keep `.env` file secure and never commit it
 
 ---
 

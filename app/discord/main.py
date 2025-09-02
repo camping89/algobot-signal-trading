@@ -6,13 +6,6 @@ import os
 from contextlib import asynccontextmanager
 from app.discord.config import discord_settings
 
-# Debug support
-if os.getenv("DEBUG_MODE", "false").lower() == "true":
-    import debugpy
-    debugpy.listen(("0.0.0.0", 3999))
-    print("Discord app waiting for debugger to attach on port 3999...")
-    debugpy.wait_for_client()
-
 from app.discord.routers import messages as discord_messages
 from app.discord.services.discord_message_service import DiscordMessageService
 from app.discord.services.discord_scheduler import DiscordScheduler

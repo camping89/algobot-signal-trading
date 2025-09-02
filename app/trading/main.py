@@ -7,12 +7,6 @@ import os
 from contextlib import asynccontextmanager
 from app.trading.config import trading_settings
 
-# Debug support
-if os.getenv("DEBUG_MODE", "false").lower() == "true":
-    import debugpy
-    debugpy.listen(("0.0.0.0", 4999))
-    print("Trading app waiting for debugger to attach on port 4999...")
-    debugpy.wait_for_client()
 from app.trading.routers.okx import trading as okx_trading, market as okx_market, account as okx_account
 from app.trading.routers.okx import algo_trading
 

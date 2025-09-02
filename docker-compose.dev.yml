@@ -14,7 +14,6 @@ services:
       - ./shared:/app/shared
       - ./domain:/app/domain
     environment:
-      - DEBUG_MODE=true
     env_file:
       - .env
     depends_on:
@@ -36,7 +35,6 @@ services:
       - ./shared:/app/shared
       - ./domain:/app/domain
     environment:
-      - DEBUG_MODE=true
     env_file:
       - .env
     depends_on:
