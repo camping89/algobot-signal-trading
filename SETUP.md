@@ -102,7 +102,7 @@ Or install and run them locally:
 
 **Redis** (alternative to Docker):
 - Install Redis
-- Start Redis server on default port 6379
+- Start Redis server on default port 3098
 
 #### 4. Run Services Individually
 
@@ -115,7 +115,7 @@ python -m uvicorn main:app --host 0.0.0.0 --port 3000 --reload
 **Start Trading Service:**
 ```bash
 cd app/trading
-python -m uvicorn main:app --host 0.0.0.0 --port 4000 --reload
+python -m uvicorn main:app --host 0.0.0.0 --port 3010 --reload
 ```
 
 ## Database Setup
@@ -147,20 +147,20 @@ Once running, the following endpoints will be available:
 - **Docs**: http://localhost:4000/docs
 
 #### Database Services
-- **MongoDB**: localhost:27017
-- **Redis**: localhost:6379
+- **MongoDB**: localhost:3099
+- **Redis**: localhost:3098
 
 ### Verification Steps
 
 1. **Check Service Health:**
 ```bash
 curl http://localhost:3000/health
-curl http://localhost:4000/health
+curl http://localhost:3010/health
 ```
 
 2. **Access API Documentation:**
 - Discord Service: http://localhost:3000/docs
-- Trading Service: http://localhost:4000/docs
+- Trading Service: http://localhost:3010/docs
 
 3. **Test Database Connectivity:**
 The health check endpoints will verify database connections.

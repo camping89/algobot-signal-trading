@@ -13,13 +13,13 @@ COPY app/trading/requirements.txt ./
 RUN pip install --no-cache-dir -r requirements.txt
 
 # Expose ports
-EXPOSE 4000
-EXPOSE 4999
+EXPOSE 3010
+EXPOSE 3019
 
 # Development stage
 FROM base as development
 # Don't copy code - it will be mounted via volumes
-CMD ["uvicorn", "app.trading.main:app", "--host", "0.0.0.0", "--port", "4000", "--reload"]
+CMD ["uvicorn", "app.trading.main:app", "--host", "0.0.0.0", "--port", "3010", "--reload"]
 
 # Production stage
 FROM base as production
@@ -28,4 +28,4 @@ COPY app/ ./app/
 COPY shared/ ./shared/
 COPY domain/ ./domain/
 COPY .env .
-CMD ["uvicorn", "app.trading.main:app", "--host", "0.0.0.0", "--port", "4000"]
+CMD ["uvicorn", "app.trading.main:app", "--host", "0.0.0.0", "--port", "3010"]

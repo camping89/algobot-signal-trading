@@ -8,7 +8,7 @@ services:
       target: development
     ports:
       - "3000:3000"    # App port
-      - "3999:3999"    # Debug port
+      - "3009:3009"    # Debug port
     volumes:
       - ./app:/app/app
       - ./shared:/app/shared
@@ -28,8 +28,8 @@ services:
       dockerfile: app/trading/Dockerfile
       target: development
     ports:
-      - "4000:4000"    # App port
-      - "4999:4999"    # Debug port
+      - "3010:3010"    # App port
+      - "3019:3019"    # Debug port
     volumes:
       - ./app:/app/app
       - ./shared:/app/shared
@@ -46,7 +46,7 @@ services:
   mongodb:
     image: mongo:7-jammy
     ports:
-      - "27017:27017"
+      - "3099:27017"
     environment:
       - MONGO_INITDB_ROOT_USERNAME=admin
       - MONGO_INITDB_ROOT_PASSWORD=password123
@@ -58,7 +58,7 @@ services:
   redis:
     image: redis:7-alpine
     ports:
-      - "6379:6379"
+      - "3098:6379"
     volumes:
       - redis_data:/data
     networks:

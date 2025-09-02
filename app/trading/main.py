@@ -117,4 +117,4 @@ app.include_router(okx_account.get_router(services.okx_account_service), prefix=
 app.include_router(algo_trading.get_router(services.okx_algo_service), prefix="/okx")
 
 if __name__ == "__main__":
-    uvicorn.run("app.trading.main:app", host="0.0.0.0", port=4000, reload=True)
+    uvicorn.run("app.trading.main:app", host="0.0.0.0", port=3010, reload=True)

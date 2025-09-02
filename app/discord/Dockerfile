@@ -9,7 +9,7 @@ RUN pip install --no-cache-dir -r requirements.txt
 
 # Expose ports
 EXPOSE 3000
-EXPOSE 3999
+EXPOSE 3009
 
 # Development stage
 FROM base as development
