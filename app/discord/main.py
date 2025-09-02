@@ -24,6 +24,9 @@ logger = logging.getLogger(__name__)
 @asynccontextmanager
 async def lifespan(app: FastAPI):
     """Discord service lifespan"""
+    logger.info("--------------------------------------------")
+    logger.info("| STARTUP - DISCORD APP                    |")
+    logger.info("--------------------------------------------")
     # Startup
     try:
         await discord_message_service.initialize_db()

@@ -32,6 +32,9 @@ logger = logging.getLogger(__name__)
 @asynccontextmanager
 async def lifespan(app: FastAPI):
     """Trading service lifespan with dependency injection"""
+    logger.info("--------------------------------------------")
+    logger.info("| STARTUP - TRADING APP                    |")
+    logger.info("--------------------------------------------")
     # Startup
     try:
         # Initialize all services using dependency injection

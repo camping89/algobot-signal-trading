@@ -15,21 +15,21 @@ class DiscordScheduler:
         
     async def start_scheduler(self):
         """Start the scheduler with Discord message fetching job"""
-        try:
-            self.scheduler.add_job(
-                func=self._fetch_messages_job,
-                trigger=IntervalTrigger(minutes=1),
-                id=self.job_id,
-                name="Fetch Discord Messages",
-                replace_existing=True
-            )
-            
-            self.scheduler.start()
-            self.logger.info("Discord message scheduler started (runs every 1 minute)")
-            
-        except Exception as e:
-            self.logger.error(f"Failed to start Discord scheduler: {str(e)}")
-            raise
+        # try:
+        #     self.scheduler.add_job(
+        #         func=self._fetch_messages_job,
+        #         trigger=IntervalTrigger(minutes=1),
+        #         id=self.job_id,
+        #         name="Fetch Discord Messages",
+        #         replace_existing=True
+        #     )
+        #
+        #     self.scheduler.start()
+        #     self.logger.info("Discord message scheduler started (runs every 1 minute)")
+        #
+        # except Exception as e:
+        #     self.logger.error(f"Failed to start Discord scheduler: {str(e)}")
+        #     raise
     
     async def stop_scheduler(self):
         """Stop the scheduler"""

@@ -4,13 +4,11 @@ This guide will help you set up and run the OKX Trading System locally on your m
 
 ## Table of Contents
 - [Prerequisites](#prerequisites)
-- [System Requirements](#system-requirements)
 - [Environment Configuration](#environment-configuration)
-- [Installation Methods](#installation-methods)
+- [Installation](#installation)
 - [Database Setup](#database-setup)
 - [Running the Application](#running-the-application)
 - [Testing](#testing)
-- [Troubleshooting](#troubleshooting)
 - [Project Architecture](#project-architecture)
 
 ## Prerequisites
@@ -28,11 +26,11 @@ cp .env.example .env
 ```
 
 
-## Installation Methods
+## Installation
 
-### Method 1: Docker Development Setup (Recommended)
+### Docker Development Setup
 
-This method sets up the entire stack with one command, including databases.
+This method sets up the entire stack with one command, including all services and databases, following production-style deployment.
 
 #### 1. Start All Services
 ```bash
@@ -59,65 +57,6 @@ docker-compose -f docker-compose.dev.yml down
 docker-compose -f docker-compose.dev.yml up --build
 ```
 
-### Method 2: Local Python Setup
-
-For development with direct Python execution and debugging.
-
-#### 1. Create Virtual Environment
-```bash
-python -m venv venv
-
-# Activate virtual environment
-# Windows:
-venv\Scripts\activate
-# macOS/Linux:
-source venv/bin/activate
-```
-
-#### 2. Install Dependencies
-
-Install Discord service dependencies:
-```bash
-pip install -r app/discord/requirements.txt
-```
-
-Install Trading service dependencies:
-```bash
-pip install -r app/trading/requirements.txt
-```
-
-#### 3. Start Required Services
-Start MongoDB and Redis using Docker:
-```bash
-# Start only the databases
-docker-compose -f docker-compose.dev.yml up -d mongodb redis
-```
-
-Or install and run them locally:
-
-**MongoDB** (alternative to Docker):
-- Install MongoDB Community Edition
-- Start MongoDB service
-- Create database: `trading_system`
-
-**Redis** (alternative to Docker):
-- Install Redis
-- Start Redis server on default port 3098
-
-#### 4. Run Services Individually
-
-**Start Discord Service:**
-```bash
-cd app/discord
-python -m uvicorn main:app --host 0.0.0.0 --port 3000 --reload
-```
-
-**Start Trading Service:**
-```bash
-cd app/trading
-python -m uvicorn main:app --host 0.0.0.0 --port 3010 --reload
-```
-
 ## Database Setup
 
 ### MongoDB Collections
@@ -134,33 +73,15 @@ No initial data setup is required. The system will create collections and indexe
 
 ### Service Endpoints
 
-Once running, the following endpoints will be available:
-
-#### Discord Service
-- **API**: http://localhost:3000
-- **Health Check**: http://localhost:3000/health
-- **Docs**: http://localhost:3000/docs
-
-#### Trading Service
-- **API**: http://localhost:4000
-- **Health Check**: http://localhost:4000/health
-- **Docs**: http://localhost:4000/docs
-
-#### Database Services
-- **MongoDB**: localhost:3099
-- **Redis**: localhost:3098
+Once running, the services will be available on their configured ports. See `debug.md` for detailed port configuration and debugging setup.
 
 ### Verification Steps
 
 1. **Check Service Health:**
-```bash
-curl http://localhost:3000/health
-curl http://localhost:3010/health
-```
+Use the health check endpoints for each service (see `debug.md` for ports and debugging)
 
 2. **Access API Documentation:**
-- Discord Service: http://localhost:3000/docs
-- Trading Service: http://localhost:3010/docs
+API documentation is available at the `/docs` endpoint for each service
 
 3. **Test Database Connectivity:**
 The health check endpoints will verify database connections.
