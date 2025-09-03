@@ -8,7 +8,7 @@ from fastapi import APIRouter, Depends, Query
 from fastapi.responses import JSONResponse
 
 from .health_checker import health_checker, HealthStatus
-from sharedauth.auth_middleware import get_current_user, TokenData
+from shared.auth.auth_middleware import get_current_user, TokenData
 
 
 def create_health_router(

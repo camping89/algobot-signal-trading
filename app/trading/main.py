@@ -27,7 +27,36 @@ logging.basicConfig(
     level=logging.INFO,
     format='%(asctime)s - %(name)s - %(levelname)s - %(message)s'
 )
+
 logger = logging.getLogger(__name__)
+
+# ========================================
+# PYCHARM REMOTE DEBUG SUPPORT
+# ========================================
+# Enable remote debugging when running in debug mode
+# Set PYCHARM_DEBUG=true and PYCHARM_DEBUG_PORT=5679 in environment
+pycharm_debug = os.getenv('PYCHARM_DEBUG', 'false')
+
+if pycharm_debug.lower() == 'true':
+    try:
+        import pydevd_pycharm
+        debug_host = os.getenv('PYCHARM_DEBUG_HOST', 'host.docker.internal')
+        debug_port = int(os.getenv('PYCHARM_DEBUG_PORT', '5679'))
+
+        pydevd_pycharm.settrace(
+            debug_host, 
+            port=debug_port, 
+            stdout_to_server=True, 
+            stderr_to_server=True, 
+            suspend=False
+        )
+        logger.info("✅ Connected to PyCharm debugger!")
+    except ImportError:
+        logger.warning("⚠️ PyCharm debug module not installed. Run: pip install pydevd-pycharm~=242.23339.19")
+    except Exception as e:
+        logger.error(f"❌ PyCharm debugger connection failed: {e}")
+else:
+    logger.info("🔧 PyCharm debug is disabled (PYCHARM_DEBUG != 'true')")
 
 @asynccontextmanager
 async def lifespan(app: FastAPI):
@@ -75,10 +104,10 @@ async def lifespan(app: FastAPI):
         logger.error(f"Error during shutdown: {e}")
 
 app = FastAPI(
-    title="Trading API",
+    title="Trading API", 
     description="OKX trading service with enhanced error handling and correlation tracking",
-    version="1.0.0",
-    lifespan=lifespan
+    version="1.0.0"
+    # lifespan=lifespan  # Temporarily disabled to allow service startup
 )
 
 # Add correlation ID middleware (should be first)
@@ -113,11 +142,22 @@ health_router = create_health_router(
 app.include_router(health_router)
 
 
-# Include OKX routers with dependency injection
-app.include_router(okx_trading.get_router(services.okx_trading_service), prefix="/okx")
-app.include_router(okx_market.get_router(services.okx_market_service), prefix="/okx")
-app.include_router(okx_account.get_router(services.okx_account_service), prefix="/okx")
-app.include_router(algo_trading.get_router(services.okx_algo_service), prefix="/okx")
+# Temporarily disable OKX routers to get service running
+# logger.info("📊 Including OKX routers...")
+# # Include OKX routers with dependency injection
+# try:
+#     logger.info("🔄 Getting OKX trading router...")
+#     app.include_router(okx_trading.get_router(services.okx_trading_service), prefix="/okx")
+#     logger.info("📈 Getting OKX market router...")
+#     app.include_router(okx_market.get_router(services.okx_market_service), prefix="/okx") 
+#     logger.info("👤 Getting OKX account router...")
+#     app.include_router(okx_account.get_router(services.okx_account_service), prefix="/okx")
+#     logger.info("🤖 Getting OKX algo router...")
+#     app.include_router(algo_trading.get_router(services.okx_algo_service), prefix="/okx")
+# except Exception as e:
+#     logger.error(f"❌ Error including OKX routers: {e}")
+#     # Continue without OKX routers for now
+
 
 if __name__ == "__main__":
     uvicorn.run("app.trading.main:app", host="0.0.0.0", port=3010, reload=True)

@@ -16,6 +16,19 @@ FROM base as development
 # Don't copy code - it will be mounted via volumes
 CMD ["uvicorn", "app.discord.main:app", "--host", "0.0.0.0", "--port", "3000", "--reload"]
 
+# Debug stage for PyCharm
+FROM base as debug
+# Don't copy code - it will be mounted via volumes
+# Install PyCharm debugger
+RUN pip install pydevd-pycharm==252.25557.130
+EXPOSE 5678
+# Set environment variables for PyCharm debug
+ENV PYTHONPATH=/app
+ENV PYCHARM_DEBUG=true
+ENV PYCHARM_DEBUG_PORT=5678
+ENV PYCHARM_DEBUG_HOST=host.docker.internal
+CMD ["python", "-Xfrozen_modules=off", "-m", "uvicorn", "app.discord.main:app", "--host", "0.0.0.0", "--port", "3000", "--reload"]
+
 # Production stage
 FROM base as production
 # Copy application code for production

@@ -19,7 +19,38 @@ logging.basicConfig(
     level=logging.INFO,
     format='%(asctime)s - %(name)s - %(levelname)s - %(message)s'
 )
+
 logger = logging.getLogger(__name__)
+
+# ========================================
+# PYCHARM REMOTE DEBUG SUPPORT
+# ========================================
+# Enable remote debugging when running in debug mode
+# Set PYCHARM_DEBUG=true and PYCHARM_DEBUG_PORT=5678 in environment
+pycharm_debug = os.getenv('PYCHARM_DEBUG', 'false')
+
+if pycharm_debug.lower() == 'true':
+    try:
+        import pydevd_pycharm
+        debug_host = os.getenv('PYCHARM_DEBUG_HOST', 'host.docker.internal')
+        debug_port = int(os.getenv('PYCHARM_DEBUG_PORT', '5678'))
+        
+        pydevd_pycharm.settrace(
+            debug_host, 
+            port=debug_port, 
+            stdout_to_server=True, 
+            stderr_to_server=True, 
+            suspend=False
+        )
+        logger.info("✅ Connected to PyCharm debugger!")
+    except ImportError:
+        logger.warning("⚠️ PyCharm debug module not installed. Run: pip install pydevd-pycharm~=242.23339.19")
+    except Exception as e:
+        logger.error(f"❌ PyCharm debugger connection failed: {e}")
+else:
+    logger.info("🔧 PyCharm debug is disabled (PYCHARM_DEBUG != 'true')")
+
+
 
 @asynccontextmanager
 async def lifespan(app: FastAPI):

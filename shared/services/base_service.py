@@ -1,6 +1,6 @@
 """Base service classes for reducing code duplication across services."""
 
-from abc import ABC, abstractmethod
+from abc import ABC, ABCMeta, abstractmethod
 from typing import Generic, TypeVar
 import logging
 import asyncio
@@ -22,6 +22,11 @@ class SingletonMeta(type):
                 instance = super().__call__(*args, **kwargs)
                 cls._instances[cls] = instance
         return cls._instances[cls]
+
+
+class SingletonABCMeta(SingletonMeta, ABCMeta):
+    """Combined metaclass for Singleton pattern with Abstract Base Classes."""
+    pass
 
 
 class BaseService(ABC):
@@ -151,7 +156,7 @@ class BaseTradingService(BaseService, Generic[T]):
         return await self.ensure_connected()
 
 
-class BaseConnectionService(BaseService, metaclass=SingletonMeta):
+class BaseConnectionService(BaseService, metaclass=SingletonABCMeta):
     """
     Base class for connection services (MT5, OKX).
     Implements singleton pattern with thread-safe initialization.

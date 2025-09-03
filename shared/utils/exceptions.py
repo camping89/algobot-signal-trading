@@ -15,6 +15,11 @@ class ServiceError(Exception):
     pass
 
 
+class TradingError(ServiceError):
+    """Base class for trading-related errors"""
+    pass
+
+
 class TradeExecutionError(ServiceError):
     """Raised when trade execution fails"""
     pass 

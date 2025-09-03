@@ -1,0 +1,8 @@
+<component name="ProjectRunConfigurationManager">
+  <configuration default="false" name="Debug Discord with Docker" type="CompoundRunConfigurationType">
+    <toRun name="Discord service debug" type="PyRemoteDebugConfigurationType" />
+    <toRun name="Trading service debug" type="PyRemoteDebugConfigurationType" />
+    <toRun name="Start Docker Debug" type="ShConfigurationType" />
+    <method v="2" />
+  </configuration>
+</component>

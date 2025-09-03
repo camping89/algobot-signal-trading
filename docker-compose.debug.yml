@@ -1,0 +1,73 @@
+version: '3.8'
+
+services:
+  discord-debug:
+    build:
+      context: .
+      dockerfile: app/discord/Dockerfile
+      target: debug
+    ports:
+      - "3000:3000"    # App port
+    volumes:
+      - ./app:/app/app
+      - ./shared:/app/shared
+      - ./domain:/app/domain
+    env_file:
+      - .env
+    depends_on:
+      - mongodb
+      - redis
+    networks:
+      - trading-network
+    extra_hosts:
+      - "host.docker.internal:host-gateway"
+
+  trading-debug:
+    build:
+      context: .
+      dockerfile: app/trading/Dockerfile
+      target: debug
+    ports:
+      - "3010:3010"    # App port
+    volumes:
+      - ./app:/app/app
+      - ./shared:/app/shared
+      - ./domain:/app/domain
+    env_file:
+      - .env
+    depends_on:
+      - mongodb
+      - redis
+    networks:
+      - trading-network
+    extra_hosts:
+      - "host.docker.internal:host-gateway"
+
+  mongodb:
+    image: mongo:7-jammy
+    ports:
+      - "3099:27017"
+    environment:
+      - MONGO_INITDB_ROOT_USERNAME=admin
+      - MONGO_INITDB_ROOT_PASSWORD=password123
+    volumes:
+      - mongodb_data:/data/db
+    networks:
+      - trading-network
+
+  redis:
+    image: redis:7-alpine
+    ports:
+      - "3098:6379"
+    volumes:
+      - redis_data:/data
+    networks:
+      - trading-network
+
+volumes:
+  mongodb_data:
+  redis_data:
+
+networks:
+  trading-network:
+    driver: bridge
