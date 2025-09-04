@@ -1,6 +1,6 @@
 <component name="ProjectRunConfigurationManager">
   <configuration default="false" name="Start Docker Debug" type="ShConfigurationType">
-    <option name="SCRIPT_TEXT" value="docker-compose -f docker-compose.debug.yml down; docker-compose -f docker-compose.debug.yml up -d discord-debug trading-debug" />
+    <option name="SCRIPT_TEXT" value="docker-compose -f docker-compose.debug.yml stop discord-debug trading-debug; docker-compose -f docker-compose.debug.yml rm -f discord-debug trading-debug; docker-compose -f docker-compose.debug.yml up -d discord-debug trading-debug" />
     <option name="INDEPENDENT_SCRIPT_PATH" value="false" />
     <option name="SCRIPT_PATH" value="$PROJECT_DIR$/debug-start.bat" />
     <option name="SCRIPT_OPTIONS" value="" />
