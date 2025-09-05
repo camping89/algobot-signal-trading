@@ -1,11 +1,11 @@
 from fastapi import APIRouter, HTTPException, Depends
 from typing import List, Dict, Any
 import logging
-from app.discord.models.message import DiscordFetchRequest, DiscordData
+from app.discord.models import DiscordFetchRequest, DiscordData
 from app.discord.services.discord_message_service import DiscordMessageService
 
 
-def get_router(discord_service: DiscordMessageService) -> APIRouter:
+def get(discord_service: DiscordMessageService) -> APIRouter:
     router = APIRouter(tags=["Discord Messages"])
     logger = logging.getLogger(__name__)
 
