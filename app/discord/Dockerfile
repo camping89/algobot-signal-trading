@@ -20,7 +20,7 @@ CMD ["uvicorn", "app.discord.main:app", "--host", "0.0.0.0", "--port", "3000", "
 FROM base as debug
 # Don't copy code - it will be mounted via volumes
 # Install PyCharm debugger
-RUN pip install pydevd-pycharm==252.25557.130
+RUN pip install pydevd-pycharm==252.25557.178
 EXPOSE 5678
 # Set environment variables for PyCharm debug
 ENV PYTHONPATH=/app

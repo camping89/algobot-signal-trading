@@ -6,7 +6,7 @@ import os
 from contextlib import asynccontextmanager
 from app.discord.config import discord_settings
 
-from app.discord.routers import messages as discord_messages
+from app.discord.routers import router
 from app.discord.services.discord_message_service import DiscordMessageService
 from app.discord.services.discord_scheduler import DiscordScheduler
 
@@ -44,7 +44,7 @@ if pycharm_debug.lower() == 'true':
         )
         logger.info("✅ Connected to PyCharm debugger!")
     except ImportError:
-        logger.warning("⚠️ PyCharm debug module not installed. Run: pip install pydevd-pycharm~=242.23339.19")
+        logger.warning("⚠️ PyCharm debug module not installed. Run: pip install pydevd-pycharm~=<your pycharm version>")
     except Exception as e:
         logger.error(f"❌ PyCharm debugger connection failed: {e}")
 else:
@@ -103,9 +103,6 @@ async def health_check():
 
 # Include Discord router
 app.include_router(
-    discord_messages.get_router(discord_message_service),
+    discord_messages.get(discord_message_service),
     prefix="/discord"
 )
-
-if __name__ == "__main__":
-    uvicorn.run("app.discord.main:app", host="0.0.0.0", port=3000, reload=True)

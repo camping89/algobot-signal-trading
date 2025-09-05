@@ -52,7 +52,7 @@ if pycharm_debug.lower() == 'true':
         )
         logger.info("✅ Connected to PyCharm debugger!")
     except ImportError:
-        logger.warning("⚠️ PyCharm debug module not installed. Run: pip install pydevd-pycharm~=242.23339.19")
+        logger.warning("⚠️ PyCharm debug module not installed. Run: pip install pydevd-pycharm~=<your pycharm version>")
     except Exception as e:
         logger.error(f"❌ PyCharm debugger connection failed: {e}")
 else:
@@ -157,7 +157,3 @@ app.include_router(health_router)
 # except Exception as e:
 #     logger.error(f"❌ Error including OKX routers: {e}")
 #     # Continue without OKX routers for now
-
-
-if __name__ == "__main__":
-    uvicorn.run("app.trading.main:app", host="0.0.0.0", port=3010, reload=True)
