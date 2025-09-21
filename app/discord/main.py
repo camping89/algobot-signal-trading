@@ -6,7 +6,7 @@ import os
 from contextlib import asynccontextmanager
 from app.discord.config import discord_settings
 
-from app.discord.routers import router
+from core.router_discovery import discover_all_routers
 from app.discord.services.discord_message_service import DiscordMessageService
 from app.discord.services.discord_scheduler import DiscordScheduler
 
@@ -101,8 +101,11 @@ async def health_check():
         "discord_scheduler": discord_status
     }
 
-# Include Discord router
-app.include_router(
-    discord_messages.get(discord_message_service),
-    prefix="/discord"
-)
+logger.info("📊 Discovering and including routers...")
+try:
+    all_routers = discover_all_routers()
+    for router in all_routers:
+        app.include_router(router, prefix="/api")
+        logger.info(f"✅ Included router: {router.prefix}")
+except Exception as e:
+    logger.error(f"❌ Error including routers: {e}")

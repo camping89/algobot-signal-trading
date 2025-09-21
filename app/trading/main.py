@@ -7,8 +7,7 @@ import os
 from contextlib import asynccontextmanager
 from app.trading.config import trading_settings
 
-from app.trading.routers.okx import trading as okx_trading, market as okx_market, account as okx_account
-from app.trading.routers.okx import algo_trading
+from core.router_discovery import discover_all_routers
 
 # Service dependency injection
 from shared.service_registry import init_services, get_services, shutdown_services
@@ -142,18 +141,11 @@ health_router = create_health_router(
 app.include_router(health_router)
 
 
-# Temporarily disable OKX routers to get service running
-# logger.info("📊 Including OKX routers...")
-# # Include OKX routers with dependency injection
-# try:
-#     logger.info("🔄 Getting OKX trading router...")
-#     app.include_router(okx_trading.get_router(services.okx_trading_service), prefix="/okx")
-#     logger.info("📈 Getting OKX market router...")
-#     app.include_router(okx_market.get_router(services.okx_market_service), prefix="/okx") 
-#     logger.info("👤 Getting OKX account router...")
-#     app.include_router(okx_account.get_router(services.okx_account_service), prefix="/okx")
-#     logger.info("🤖 Getting OKX algo router...")
-#     app.include_router(algo_trading.get_router(services.okx_algo_service), prefix="/okx")
-# except Exception as e:
-#     logger.error(f"❌ Error including OKX routers: {e}")
-#     # Continue without OKX routers for now
+logger.info("📊 Discovering and including routers...")
+try:
+    all_routers = discover_all_routers()
+    for router in all_routers:
+        app.include_router(router, prefix="/api")
+        logger.info(f"✅ Included router: {router.prefix}")
+except Exception as e:
+    logger.error(f"❌ Error including routers: {e}")
